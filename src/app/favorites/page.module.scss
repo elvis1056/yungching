@@ -11,11 +11,56 @@
   }
 }
 
+.toolbar {
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+  margin-bottom: $spacing-lg;
+  align-items: center;
+}
+
 .heading {
   font-size: 1.25rem;
   font-weight: 700;
   color: $color-text;
-  margin-bottom: $spacing-lg;
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.selectAll {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  font-size: 0.9375rem;
+  color: $color-text-secondary;
+  cursor: pointer;
+
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: $color-primary;
+  }
+}
+
+.removeButton {
+  padding: $spacing-sm $spacing-md;
+  background: $color-primary;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
 }
 
 .grid {
