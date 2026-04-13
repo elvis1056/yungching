@@ -35,7 +35,9 @@
 }
 
 .noImage {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   color: $color-text-secondary;
@@ -43,7 +45,9 @@
 }
 
 .checkboxRow {
-  @include flex-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: $spacing-sm $spacing-md 0;
 
   label {

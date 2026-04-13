@@ -12,11 +12,12 @@
 }
 
 .toolbar {
-  @include flex-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
-  align-items: center;
 
   @include mobile {
     flex-direction: column;
@@ -105,7 +106,9 @@
 }
 
 .empty {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: column;
   gap: $spacing-md;
   min-height: 300px;

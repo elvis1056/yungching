@@ -2,7 +2,9 @@
 @use '../../styles/mixins' as *;
 
 .pagination {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: $spacing-md;
   margin-top: $spacing-xl;
 }

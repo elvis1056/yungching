@@ -12,7 +12,9 @@
 }
 
 .toolbar {
-  @include flex-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
@@ -54,7 +56,9 @@
 }
 
 .status {
-  @include flex-center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 300px;
   font-size: 1rem;
   color: $color-text-secondary;
