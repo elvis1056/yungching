@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 台北景點探索
 
-## Getting Started
+永慶房屋前端工程師面試作業 — 使用台北旅遊網 Open API 開發的 SPA 景點瀏覽與收藏系統。
 
-First, run the development server:
+## 功能列表
+
+**網頁 1：景點列表**
+- 從台北旅遊網 API 取得景點資料，以卡片形式顯示圖片、名稱、地址、電話
+- 分頁切換（上一頁 / 下一頁）
+- 下拉選單依分類篩選（categoryIds），切換後頁碼重置為第 1 頁
+- 勾選單筆或多筆景點，批次加入我的最愛
+- 已收藏的景點顯示「已收藏」標記
+
+**網頁 2：我的最愛**
+- 列出所有已收藏景點，支援前端分頁
+- 單筆編輯（名稱、電話、地址），含欄位驗證：
+  - 景點名稱：必填
+  - 電話：不可輸入中文
+- 勾選單筆或多筆，批次移除（含確認對話框）
+- 全選本頁 / 取消全選
+- 收藏資料儲存於 localStorage，重整後保留
+
+## 技術選型
+
+| 項目 | 選擇 | 原因 |
+|------|------|------|
+| 框架 | Next.js 14+ (App Router) | SSR + Client Component 混用，路由結構清晰 |
+| 語言 | TypeScript | 型別安全，減少執行期錯誤 |
+| 樣式 | 純手刻 SCSS | 題目要求不套 UI 框架，展示 CSS 切版能力 |
+| 狀態管理 | Zustand + persist middleware | 輕量、API 簡潔，搭配 localStorage 持久化 |
+| API 代理 | Next.js Route Handler | 統一錯誤處理與資料轉換，封裝外部 API 細節 |
+
+## 啟動方式
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+開啟 [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 專案架構
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── api/
+│   │   ├── attractions/route.ts   # 景點資料代理
+│   │   └── categories/route.ts    # 分類資料代理
+│   ├── attractions/page.tsx       # 網頁 1：景點列表
+│   ├── favorites/page.tsx         # 網頁 2：我的最愛
+│   ├── layout.tsx                 # 全域 Layout
+│   └── globals.scss
+├── components/
+│   ├── layout/Header.tsx          # 導覽列
+│   ├── AttractionCard/            # 景點卡片（含 checkbox）
+│   ├── Pagination/                # 通用分頁元件
+│   ├── CategoryFilter/            # 分類下拉選單
+│   └── EditFavoriteModal/         # 編輯 Modal（含表單驗證）
+├── store/
+│   └── useFavoritesStore.ts       # Zustand store + localStorage
+├── hooks/
+│   └── useHydration.ts            # SSR hydration 偵測
+├── lib/
+│   └── api.ts                     # 前端 fetch 封裝
+├── types/
+│   └── attraction.ts              # TypeScript 型別定義
+└── styles/
+    ├── _variables.scss            # 色彩、斷點、間距變數
+    ├── _mixins.scss               # RWD mixin、flex 工具
+    └── _reset.scss                # CSS reset
+```
 
-## Learn More
+## RWD 斷點
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| 斷點 | 寬度 |
+|------|------|
+| 桌面 | > 1024px（景點卡片 3 欄） |
+| 平板 | ≤ 1024px（景點卡片 2 欄） |
+| 手機 | ≤ 768px（景點卡片 1 欄） |

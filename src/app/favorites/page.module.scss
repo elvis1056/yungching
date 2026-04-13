@@ -17,6 +17,11 @@
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
   align-items: center;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .heading {

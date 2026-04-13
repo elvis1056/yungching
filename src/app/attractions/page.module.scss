@@ -16,6 +16,11 @@
   flex-wrap: wrap;
   gap: $spacing-md;
   margin-bottom: $spacing-lg;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 
 .addButton {

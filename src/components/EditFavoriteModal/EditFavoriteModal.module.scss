@@ -18,6 +18,11 @@
   max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
+
+  @include mobile {
+    padding: $spacing-lg $spacing-md;
+    border-radius: 8px;
+  }
 }
 
 .title {
@@ -78,6 +83,15 @@
   justify-content: flex-end;
   gap: $spacing-md;
   margin-top: $spacing-sm;
+
+  @include mobile {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+      text-align: center;
+    }
+  }
 }
 
 .cancelButton {
