@@ -13,6 +13,11 @@
   &:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   }
+
+  &.selected {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 2px rgba($color-primary, 0.2);
+  }
 }
 
 .imageWrapper {
@@ -35,6 +40,33 @@
   height: 100%;
   color: $color-text-secondary;
   font-size: 0.875rem;
+}
+
+.checkboxRow {
+  @include flex-between;
+  padding: $spacing-sm $spacing-md 0;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    font-size: 0.875rem;
+    color: $color-text-secondary;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      accent-color: $color-primary;
+    }
+  }
+}
+
+.favoriteBadge {
+  font-size: 0.75rem;
+  color: $color-primary;
+  font-weight: 500;
 }
 
 .body {
