@@ -1,0 +1,47 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-lg;
+
+  @include mobile {
+    padding: $spacing-lg $spacing-md;
+  }
+}
+
+.heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $color-text;
+  margin-bottom: $spacing-lg;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-lg;
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.empty {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-md;
+  min-height: 300px;
+  color: $color-text-secondary;
+  font-size: 1rem;
+
+  a {
+    color: $color-primary;
+    text-decoration: underline;
+  }
+}
