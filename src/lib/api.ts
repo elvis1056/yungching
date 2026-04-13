@@ -1,4 +1,4 @@
-import type { AttractionsQuery, AttractionsResponse } from "@/types/attraction";
+import type { AttractionsQuery, AttractionsResponse, Category } from "@/types/attraction";
 
 export async function fetchAttractions(
   query: AttractionsQuery = {}
@@ -12,5 +12,11 @@ export async function fetchAttractions(
 
   if (!res.ok) throw new Error("Failed to fetch attractions");
 
+  return res.json();
+}
+
+export async function fetchCategories(): Promise<Category[]> {
+  const res = await fetch("/api/categories");
+  if (!res.ok) throw new Error("Failed to fetch categories");
   return res.json();
 }
