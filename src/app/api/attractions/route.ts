@@ -52,7 +52,10 @@ export async function GET(request: NextRequest) {
   if (categoryIds) params.set("categoryIds", categoryIds);
 
   const res = await fetch(`${TAIPEI_API_BASE}?${params}`, {
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+      "User-Agent": "Mozilla/5.0 (compatible; NextJS/14)",
+    },
     next: { revalidate: 300 },
   });
 
