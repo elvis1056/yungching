@@ -1,0 +1,35 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.pagination {
+  @include flex-center;
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+}
+
+.button {
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  background: $color-background;
+  color: $color-text;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    border-color: $color-primary;
+    color: $color-primary;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.info {
+  font-size: 0.9375rem;
+  color: $color-text-secondary;
+  white-space: nowrap;
+}
