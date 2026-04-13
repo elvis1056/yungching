@@ -1,0 +1,43 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: $color-background;
+  border-bottom: 1px solid $color-border;
+}
+
+.inner {
+  @include flex-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-md $spacing-lg;
+
+  @include mobile {
+    padding: $spacing-md;
+  }
+}
+
+.logo {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.nav {
+  display: flex;
+  gap: $spacing-lg;
+}
+
+.navLink {
+  font-size: 0.9375rem;
+  color: $color-text-secondary;
+  transition: color 0.15s ease;
+
+  &:hover,
+  &.active {
+    color: $color-primary;
+  }
+}

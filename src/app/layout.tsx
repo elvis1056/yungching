@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "@/components/layout/Header";
 import "./globals.scss";
 
 export const metadata: Metadata = {
@@ -13,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-TW">
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
