@@ -1,0 +1,116 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  @include flex-center;
+  padding: $spacing-md;
+}
+
+.modal {
+  background: $color-background;
+  border-radius: 12px;
+  padding: $spacing-xl;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: $color-text;
+  margin-bottom: $spacing-lg;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-text;
+
+  .required {
+    color: $color-primary;
+    margin-left: 2px;
+  }
+}
+
+.input {
+  padding: $spacing-sm $spacing-md;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  color: $color-text;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+
+  &.inputError {
+    border-color: $color-primary;
+  }
+}
+
+.errorMsg {
+  font-size: 0.8125rem;
+  color: $color-primary;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-md;
+  margin-top: $spacing-sm;
+}
+
+.cancelButton {
+  padding: $spacing-sm $spacing-lg;
+  border: 1px solid $color-border;
+  border-radius: 6px;
+  background: $color-background;
+  color: $color-text;
+  font-size: 0.9375rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-text-secondary;
+  }
+}
+
+.submitButton {
+  padding: $spacing-sm $spacing-lg;
+  background: $color-primary;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

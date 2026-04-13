@@ -3,18 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 import AttractionCard from "@/components/AttractionCard/AttractionCard";
+import EditFavoriteModal from "@/components/EditFavoriteModal/EditFavoriteModal";
 import Pagination from "@/components/Pagination/Pagination";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { useHydration } from "@/hooks/useHydration";
+import type { Attraction } from "@/types/attraction";
 import styles from "./page.module.scss";
 
 const PAGE_SIZE = 9;
 
 export default function FavoritesPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [editingItem, setEditingItem] = useState<Attraction | null>(null);
 
   const hydrated = useHydration();
   const favorites = useFavoritesStore((s) => s.favorites);
+  const updateFavorite = useFavoritesStore((s) => s.updateFavorite);
 
   if (!hydrated) {
     return <div className={styles.container} />;
@@ -48,7 +52,15 @@ export default function FavoritesPage() {
       <h2 className={styles.heading}>我的最愛（{favorites.length}）</h2>
       <div className={styles.grid}>
         {pageItems.map((attraction) => (
-          <AttractionCard key={attraction.id} attraction={attraction} />
+          <div key={attraction.id} className={styles.cardWrapper}>
+            <AttractionCard attraction={attraction} />
+            <button
+              className={styles.editButton}
+              onClick={() => setEditingItem(attraction)}
+            >
+              編輯
+            </button>
+          </div>
         ))}
       </div>
       <Pagination
@@ -56,6 +68,13 @@ export default function FavoritesPage() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
+      {editingItem && (
+        <EditFavoriteModal
+          attraction={editingItem}
+          onSave={updateFavorite}
+          onClose={() => setEditingItem(null)}
+        />
+      )}
     </div>
   );
 }
