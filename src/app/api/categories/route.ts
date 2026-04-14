@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { fetchTaipeiApi, TaipeiApiError } from "@/lib/taipei-api";
 
 interface TaipeiCategory {
   id: number;
@@ -13,25 +14,20 @@ interface TaipeiCategoriesResponse {
 }
 
 export async function GET() {
-  const res = await fetch(
-    "https://www.travel.taipei/open-api/zh-tw/Miscellaneous/Categories?type=Attractions",
-    {
-      headers: {
-        Accept: "application/json",
-        "User-Agent": "Mozilla/5.0 (compatible; NextJS/14)",
-      },
-      next: { revalidate: 3600 },
-    }
-  );
-
-  if (!res.ok) {
-    return NextResponse.json(
-      { error: "Failed to fetch categories" },
-      { status: res.status }
+  try {
+    const json = await fetchTaipeiApi<TaipeiCategoriesResponse>(
+      "/Miscellaneous/Categories?type=Attractions",
+      3600
     );
+
+    return NextResponse.json(json.data.Category ?? []);
+  } catch (err) {
+    if (err instanceof TaipeiApiError) {
+      return NextResponse.json(
+        { error: "Failed to fetch categories" },
+        { status: err.status }
+      );
+    }
+    throw err;
   }
-
-  const json: TaipeiCategoriesResponse = await res.json();
-
-  return NextResponse.json(json.data.Category ?? []);
 }

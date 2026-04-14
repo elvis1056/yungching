@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fetchTaipeiApi, TaipeiApiError } from "@/lib/taipei-api";
 import type { Attraction, AttractionsResponse } from "@/types/attraction";
-
-const TAIPEI_API_BASE = "https://www.travel.taipei/open-api/zh-tw/Attractions/All";
 
 interface TaipeiApiImage {
   src: string;
@@ -51,27 +50,24 @@ export async function GET(request: NextRequest) {
   const params = new URLSearchParams({ page });
   if (categoryIds) params.set("categoryIds", categoryIds);
 
-  const res = await fetch(`${TAIPEI_API_BASE}?${params}`, {
-    headers: {
-      Accept: "application/json",
-      "User-Agent": "Mozilla/5.0 (compatible; NextJS/14)",
-    },
-    next: { revalidate: 300 },
-  });
-
-  if (!res.ok) {
-    return NextResponse.json(
-      { error: "Failed to fetch attractions" },
-      { status: res.status }
+  try {
+    const json = await fetchTaipeiApi<TaipeiApiResponse>(
+      `/Attractions/All?${params}`
     );
+
+    const body: AttractionsResponse = {
+      total: json.total,
+      data: json.data.map(transformItem),
+    };
+
+    return NextResponse.json(body);
+  } catch (err) {
+    if (err instanceof TaipeiApiError) {
+      return NextResponse.json(
+        { error: "Failed to fetch attractions" },
+        { status: err.status }
+      );
+    }
+    throw err;
   }
-
-  const json: TaipeiApiResponse = await res.json();
-
-  const body: AttractionsResponse = {
-    total: json.total,
-    data: json.data.map(transformItem),
-  };
-
-  return NextResponse.json(body);
 }
