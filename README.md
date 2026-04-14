@@ -30,14 +30,38 @@
 | 狀態管理 | Zustand + persist middleware | 輕量、API 簡潔，搭配 localStorage 持久化 |
 | API 代理 | Next.js Route Handler | 統一錯誤處理與資料轉換，封裝外部 API 細節 |
 
+## 環境需求
+
+| 工具 | 版本 |
+|------|------|
+| Node.js | 18.18.0 以上 |
+| npm | 9.0.0 以上 |
+
+確認版本：
+```bash
+node -v
+npm -v
+```
+
+> 不符合版本建議使用 [nvm](https://github.com/nvm-sh/nvm) 切換：
+> ```bash
+> nvm install 20
+> nvm use 20
+> ```
+
 ## 啟動方式
 
 ```bash
+# 1. 安裝依賴
 npm install
+
+# 2. 啟動開發伺服器
 npm run dev
 ```
 
 開啟 [http://localhost:3000](http://localhost:3000)
+
+> 本專案不需要設定任何環境變數，API 資料來源為公開的台北旅遊網 Open API。
 
 ## 專案架構
 
